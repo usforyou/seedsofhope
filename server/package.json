@@ -1,0 +1,49 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Seeds of Hope project server application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usforyou/seedsofhope.git"
+  },
+  "keywords": [
+    "server",
+    "seeds",
+    "hope",
+    "women",
+    "ngo"
+  ],
+  "author": "Njeck Francis M.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/usforyou/seedsofhope/issues"
+  },
+  "homepage": "https://github.com/usforyou/seedsofhope#readme",
+  "dependencies": {
+    "app-root-path": "^2.1.0",
+    "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-winston": "^3.0.1",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.3.7",
+    "morgan": "^1.9.1",
+    "node-schedule": "^1.3.0",
+    "nodemailer": "^4.6.4",
+    "nodemon": "^1.17.3",
+    "npm": "^5.8.0",
+    "passport": "^0.4.0",
+    "passport-facebook-token": "^3.3.0",
+    "passport-google-plus-token": "^2.1.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "passport-twitter-token": "^1.3.0",
+    "uuid": "^3.2.1",
+    "winston": "^2.4.1"
+  }
+}
