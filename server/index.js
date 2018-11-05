@@ -3,6 +3,8 @@ const HttpsPort = process.env.PORT || 8085;
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const fs = require('fs');
+
 //const session = require('express-session');
 
 const https = require('https');
@@ -26,7 +28,6 @@ app.use(bodyParser.json({
 const testRoutes = require('./routes/testRoutes');
 const authRoutes = require('./routes/oauthRoutes');
 const acctRoutes = require('./routes/accountRoutes');
-const companyRoutes = require('./routes/companyRoutes');
 
 app.use(logger.log);
 
@@ -63,14 +64,14 @@ app.use((req, res, next) => {
       }
 })
 
-mongoose.connect(config.mongo.url);
+mongoose.connect(config.mongo.url, { useNewUrlParser: true });
 const db = mongoose.connection;
 
 db.once('open', () => {
       console.log('Database connection successful!')
 })
 db.on('error', (err) => {
-      console.log(`Database Error: ${err}`)
+      console.log(`Database Error! ${err}`)
 })
 
 //Routes
@@ -81,7 +82,6 @@ app.get('/api', (req, res) => {
 app.use('/api/test', testRoutes.router);
 app.use('/api/accounts/oauth', authRoutes.router);
 app.use('/api/accounts', acctRoutes.router);
-app.use('/api/companies', companyRoutes.router);
 
 //Handle all unavailable routes
 app.get('*', function (req, res, next) {
@@ -94,16 +94,19 @@ app.get('*', function (req, res, next) {
 Global Error Handling Middleware
 four arguments are vital for error-handling middleware behavior
 */
-app.use((err, req, res, next) => {
-      res.status(err.status || 500).send({
-            message: `Something went wrong! ${err.message}`
-      });
-})
+// app.use((err, req, res, next) => {
+//       res.status(err.status || 500).send({
+//             message: `Something went wrong! ${err.message}`
+//       });
+// })
 
 // app.listen(HttpPort, ()=>{
 //       console.log('Server started. Listening on port '+ HttpPort)
 // })
-
+var options = {
+      key: fs.readFileSync('privatekey.key'),
+      cert: fs.readFileSync('certificate.crt')
+};
 http.createServer(app).listen(HttpPort, () => {
       console.log('Http Server started. Listening on port ' + HttpPort)
 });

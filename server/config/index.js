@@ -3,7 +3,7 @@
 module.exports = {
     jwtSecret: require('crypto').randomBytes(300),
     mongo: {
-        url: 'mongodb://localhost/seedsofhope',
+        url: 'mongodb://localhost:27017/seedsofhope',
         username: '',
         password: ''
     },
