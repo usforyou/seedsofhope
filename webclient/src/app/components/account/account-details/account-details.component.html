@@ -1,0 +1,40 @@
+<div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+    <h3 class="row text-primary">
+        Account Details
+      </h3>
+      <hr class="row"/>
+      <div class="form-group">
+          <label class="row text-primary">Profile Photo: </label>
+          <img *ngIf="user.profilePhoto" [src]="user.profilePhoto" class="row profile-img" alt="Profile Photo"/>
+          <button *ngIf="user.profilePhoto" type="button" (click)="editPhoto()" class="row btn btn-info">
+              Edit Photo<fa-icon class="float-right" [icon]="editIcon"></fa-icon>
+            </button>
+            <button *ngIf="!user.profilePhoto" type="button" (click)="uploadPhoto()" class="row btn btn-info">
+                Upload Photo<fa-icon class="float-right" [icon]="uploadIcon"></fa-icon>
+              </button>
+        </div>
+      <div class="form-group">
+        <label class="row text-primary">Full Name: </label>
+        <span class="row form-control"> {{user.fullname}}</span>
+      </div>
+      <div class="form-group">
+        <label class="row text-primary">Member since: </label>
+        <span class="row form-control"> {{user.created | date:'longDate'}}</span>
+      </div>
+      <div class="form-group">
+        <label class="row text-primary">Email: </label>
+        <div class="row form-control ">
+            <span> {{user.email}}</span>
+            <span *ngIf="user.emailVerified" class="text-success float-right">
+                <fa-icon [icon]="checkIcon"></fa-icon> Verified
+            </span>
+            <span *ngIf="!user.emailVerified" class="text-danger float-right">
+                <fa-icon [icon]="crossIcon"></fa-icon> Not Verified
+            </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="row text-primary">Phone Number: </label>
+        <span class="row form-control"> {{user.phone? user.phone : "None"}}</span>
+      </div>
+</div>

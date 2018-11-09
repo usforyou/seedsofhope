@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/home">Seeds of Hope</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="oi oi-menu"></span> Menu
+    </button>
+
+    <div class="collapse navbar-collapse" id="ftco-nav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link active" routerLink="programs/program-listing">Training Programs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" routerLink="/trainer-listing">Trainers</a>
+        </li>
+        <li [hidden]="!authenticated" class="nav-item">
+          <a class="nav-link active" routerLink="/trainee-listing">Trainees</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <li [hidden]="authenticated || searchInputVisible" class="nav-item">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+        <li [hidden]="!authenticated || searchInputVisible" class="nav-item dropdown" ngbDropdown>
+
+          <a class="nav-link dropdown-toggle" ngbDropdownToggle id="dropAccount" href="javascript:void(0)"
+            aria-expanded="false">
+            <small>{{greet()}}</small>
+            <strong>{{firstname}}</strong>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropAccount" ngbDropdownMenu>
+            <a class="dropdown-item" routerLink="/account-details">My Account</a>
+            <a class="dropdown-item" routerLink="/transaction-history">Transaction History</a>
+            <a class="dropdown-item" routerLink="/courses/my-courses">My Courses</a>
+            <a class="dropdown-item" href="javascript:void(0)" (click)="logout()">Logout</a>
+          </div>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0" (ngSubmit)=search()>
+        <input [hidden]="!searchInputVisible" [(ngModel)]="searchText" name="search" class="form-control mr-sm-2" type="text"
+          placeholder="Type search keyword..." aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+          <fa-icon [icon]="searchIcon"></fa-icon>
+        </button>
+      </form>
+    </div>
+  </div>
+</nav>

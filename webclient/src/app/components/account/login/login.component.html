@@ -1,0 +1,85 @@
+<div class="col-md-7 col-lg-5 col-sm-9 col-xs-12">
+  <h3>{{pageTitle}}</h3>
+  <br/>
+  <form name="form" (ngSubmit)="f.form.valid && submit()" #f="ngForm" novalidate>
+    <div *ngIf="!isLogin" class="form-group">
+      <!-- <label for="fullName">Full Name</label> -->
+      <input type="text" [ngClass]="{'is-invalid': fullName.invalid && (fullName.dirty || fullName.touched || f.submitted),
+        'is-valid': fullName.valid && fullName.touched}" 
+      class="form-control" name="fullName" [(ngModel)]="model.fullName" #fullName="ngModel" required placeholder="Your full name"
+      />
+      <div *ngIf="fullName.invalid && (fullName.dirty || fullName.touched || f.submitted)">
+        <div *ngIf="fullName.errors.required" class="text-danger">Your full name is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <!-- <label for="email">Email</label> -->
+      <input type="email" class="form-control" name="email" [(ngModel)]="model.email" 
+      [ngClass]="{'is-invalid': email.invalid && (email.dirty || email.touched || f.submitted),
+        'is-valid': email.valid && email.touched}" 
+        #email="ngModel" required placeholder="Your email address" pattern="[A-Za-z0-9._%+-]{2,}@[a-zA-Z]{1,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"/>
+        <div *ngIf="email.invalid && (email.dirty || email.touched || f.submitted)">
+          <div *ngIf="email.errors.required" class="text-danger">Email is required</div>
+          <div *ngIf="email.errors.pattern" class="text-danger">Invalid email format</div>
+        </div>
+    </div>
+    <div class="form-group" >
+      <!-- <label for="password">Password</label> -->
+      <input type="password" class="form-control" name="password" [(ngModel)]="model.password" 
+      [ngClass]="{'is-invalid': password.invalid && (password.dirty || password.touched || f.submitted),
+      'is-valid': password.valid && password.touched}"   
+      #password="ngModel" required pattern="^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!&@#$%*?]).*$" placeholder="Password"
+        title="Must be at least 8 characters long (at least one number, one uppercase and lowercase letter, & one special character"/>
+        <div *ngIf="password.invalid && (password.dirty || password.touched || f.submitted)">
+          <div *ngIf="password.errors.required" class="text-danger">Password is required</div>
+          <div *ngIf="password.errors.pattern" class="text-danger">Password must be at least 8 characters (one lower case, one upper case, one digit and one special character)</div>
+        </div>
+    </div>
+    <div *ngIf="!isLogin" class="form-group">
+      <!-- <label for="confirmPassword">Confirm Password</label> -->
+      <input type="password" class="form-control" name="confirmPassword" [(ngModel)]="model.confirmPassword" #confirmPassword="ngModel"
+      [ngClass]="{'is-invalid': confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched || f.submitted),
+      'is-valid': confirmPassword.valid && confirmPassword.touched}"  
+      required pattern="{{model.password}}" placeholder="Re-enter password"/>
+        <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched || f.submitted)">
+          <div class="text-danger">Password and Confirm Password do not match</div>
+        </div>
+    </div>
+    <div class="form-group">
+      <button [disabled]="loading" type="submit" class="btn btn-success form-control">{{submitBtnText}}</button>
+      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+    </div>
+    <div class="form-group">
+      <div class="row">
+          <div class="col-md-4 col-sm-4">
+              <button type="button" (click)="facebook()" class="btn facebookBlue form-control">
+                   facebook<fa-icon class="float-right" [icon]="fbIcon"></fa-icon>
+                </button>
+          </div>
+          <div class="col-md-4 col-sm-4">
+              <button type="button" (click)="gmail()" class="btn googleRed form-control">
+                  gmail<fa-icon class="float-right" [icon]="gmailIcon"></fa-icon>
+                </button>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <button type="button" (click)="linkedIn()" class="btn btn-primary form-control">
+                    linkedIn<fa-icon class="float-right" [icon]="linkedInIcon"></fa-icon>
+                  </button>
+              </div>
+      </div>
+        <!-- <button (click)="facebook()" class="btn btn-primary form-control">
+          facebook <fa-icon class="float-right" [icon]="fbIcon"></fa-icon>
+        </button> -->
+      </div>
+    <!-- <div class="form-group">
+      <button (click)="gmail()" class="btn btn-danger form-control">
+        gmail<fa-icon class="float-right" [icon]="gmailIcon"></fa-icon>
+      </button>
+    </div> -->
+    <div class="form-group">
+      <div class="text-center">
+          {{registerCall}}<button class="btn btn-link" type="button" (click)="toggleLogin()">{{toggleBtnText}}</button>
+      </div>
+    </div>
+  </form>
+</div>

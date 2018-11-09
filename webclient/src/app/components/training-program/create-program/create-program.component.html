@@ -1,0 +1,48 @@
+<div class="col-md-7 col-lg-5 col-sm-9 col-xs-12">
+  <h3>Create a Training Program - {{pageTitle}}</h3>
+  <br/>
+  <form name="form" (ngSubmit)="fDetails.form.valid && submitprogram()" #fDetails="ngForm" novalidate>
+    <div >
+      <div class="form-group" [ngClass]="{ 'is-invalid': fDetails.submitted && !programTitle.valid }">
+        <label class="text-info" for="programTitle">Program Title</label>
+        <input type="text" class="form-control" name="programTitle" [(ngModel)]="program.programTitle" #programTitle="ngModel" required
+          placeholder="Enter program title" />
+        <div *ngIf="programTitle.invalid && (programTitle.dirty || programTitle.touched || fDetails.submitted)">
+          <div *ngIf="programTitle.errors.required" class="alert alert-danger">A program title is required</div>
+        </div>
+      </div>
+      <div class="form-group" [ngClass]="{ 'is-invalid': fDetails.submitted && !summary.valid }">
+        <label class="text-info" for="summary">Program Summary</label>
+        <textarea type="text" class="form-control" name="summary" [(ngModel)]="program.summary" #summary="ngModel" 
+        rows="4" placeholder="Describe the program, mode of delivery, intended audience, etc."
+        ></textarea>
+        <div *ngIf="summary.invalid && (summary.dirty || summary.touched || fDetails.submitted)">
+          <div *ngIf="summary.errors.required" class="alert alert-danger">summary is required</div>
+        </div>
+      </div>
+      <div class="form-group" [ngClass]="{ 'is-invalid': fDetails.submitted && !price.valid }">
+        <label class="text-info" for="price">Price</label>
+        <input type="number" class="col-xs-6 col-sm-6 col-md-6 form-control" name="price" [(ngModel)]="program.price" #price="ngModel" placeholder="0" />
+        <div *ngIf="price==0 && (price.dirty || price.touched || fDetails.submitted)">
+          <div class="alert alert-danger">Price cannot be 0</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6">
+            <button type="button" (click)="backToprogramDetails()" class="btn btn-info form-control">
+              Back
+              <fa-icon class="float-left" [icon]="backIcon"></fa-icon>
+            </button>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-6">
+            <button type="submit" (click)="submitProgram()" class="btn btn-success form-control">
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+  </form>
+</div>
+
