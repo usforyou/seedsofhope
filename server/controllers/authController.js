@@ -95,9 +95,9 @@ async function confirmAccount(req, res, next) {
             'invalid or expired token. Please request another confirmation email');
         }
         let query = {_id: confirmToken.userId, "local.email": email}
-        let modifiedUser = await UserModel.User.findOneAndUpdate(query, 
+        let isUserAcctUpdated = await UserModel.User.findOneAndUpdate(query, 
             {$set:{"local.emailVerified": true}}, {new: true})
-        if(!modifiedUser){
+        if(!isUserAcctUpdated){
             return security.sendAuthError(res, 401, 'AccountNotFound',
             'failed to verify email. user account could not be found')
         }

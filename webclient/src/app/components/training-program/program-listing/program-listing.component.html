@@ -1,47 +1,58 @@
-<h3>
-  Program Listing
-</h3>
-<hr/>
-<div class="card-deck">
-  <div *ngFor="let program of programs" class="col-xs-8 col-sm-6 col-md-6 col-lg-4">
-    <div class="card card-colors border-info mb-5">
+<div class="col-md-10 col-lg-8 col-sm-12 col-xs-12">
+  <h3>
+    Program Listing
+  </h3>
+  <hr />
+  <div class="container-fluid" *ngIf='programs.length < 1'>
+    <div class="form-group col-lg-4">No training programs have been created yet!</div>
+    <br>
+    <div class="form-group col-md-3 col-sm-6">
+      <a routerLink="/programs/create-program" class="btn btn-success">
+        <fa-icon class="float-left" [icon]="createIcon"></fa-icon>
+        Add a Training Program
+      </a>
+    </div>
+  </div>
+  <div *ngIf="programs.length > 0" class="card-deck">
+    <div *ngFor="let program of programs" class="col-xs-8 col-sm-6 col-md-6 col-lg-4">
+      <div class="card card-colors border-info mb-5">
 
-      <!--Card Header-->
-      <div class="card-header card-header-styles">
-        <a routerLink="/program/program-details" [queryParams]="{'programId': program.programId}">
-          <h4 class="card-title">{{program.title}}</h4>
-        </a>
-        <h5 class="card-subtitle font-weight-bold font-italic">{{program.category}}</h5>
-      </div>
+        <!--Card Header-->
+        <div class="card-header card-header-styles">
+          <a routerLink="/program/program-details" [queryParams]="{'programId': program.programId}">
+            <h4 class="card-title">{{program.title}}</h4>
+          </a>
+          <h5 class="card-subtitle font-weight-bold font-italic">{{program.category}}</h5>
+        </div>
 
-      <!--Card Body-->
-      <div class="card-body card-body-styles">
+        <!--Card Body-->
+        <div class="card-body card-body-styles">
 
-        <p class="card-text">{{program.summary | ellipsis:150}}</p>
-        <a class="float-right font-weight-bold" routerLink="/programs/program-details" [queryParams]="{'programId': program.programId}">
-          Read More
-          <fa-icon [icon]="angleDoubleRight"></fa-icon>
-        </a>
-      </div>
+          <p class="card-text">{{program.summary | ellipsis:150}}</p>
+          <a class="float-right font-weight-bold" routerLink="/programs/program-details" [queryParams]="{'programId': program.programId}">
+            Read More
+            <fa-icon [icon]="angleDoubleRight"></fa-icon>
+          </a>
+        </div>
 
-      <!--Card Footer-->
-      <div class="card-footer card-footer-styles">
-        <div class="float-left">
-          <a class="px-2 fa-lg tw-ic">
-            <fa-icon [icon]="twitterIcon"></fa-icon>
-          </a>
-          <a class="px-2 fa-lg li-ic">
-            <fa-icon [icon]="linkedInIcon"></fa-icon>
-          </a>
-          <a class="px-2 fa-lg fa-ic">
-            <fa-icon [icon]="facebookIcon"></fa-icon>
-          </a>
-          <a class="px-2 fa-lg en-ic">
-            <fa-icon [icon]="envolopeIcon"></fa-icon>
-          </a>
+        <!--Card Footer-->
+        <div class="card-footer card-footer-styles">
+          <div class="float-left">
+            <a class="px-2 fa-lg tw-ic">
+              <fa-icon [icon]="twitterIcon"></fa-icon>
+            </a>
+            <a class="px-2 fa-lg li-ic">
+              <fa-icon [icon]="linkedInIcon"></fa-icon>
+            </a>
+            <a class="px-2 fa-lg fa-ic">
+              <fa-icon [icon]="facebookIcon"></fa-icon>
+            </a>
+            <a class="px-2 fa-lg en-ic">
+              <fa-icon [icon]="envolopeIcon"></fa-icon>
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-

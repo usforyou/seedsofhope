@@ -6,12 +6,13 @@ import {Observable, Subject} from 'rxjs';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {SocialAuthService} from './social-auth.service';
 import { getAppID } from '../config/socialLoginConfig';
+import {URLConfig} from '../config/urls';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService implements OnInit {
-
+  private secureUrl: string = URLConfig.getSecureApiUrl();
   //these sources will broadcast observables when user logs in or logs out
   private loggedInSource = new Subject<any>();
   private loggedOutSource = new Subject<any>();
@@ -45,7 +46,7 @@ export class AuthService implements OnInit {
   }
 }
   login(loginModel) {
-    return this.http.post<any>('http://localhost:8080/accounts/oauth/login',
+    return this.http.post<any>(this.secureUrl + '/accounts/oauth/login',
       loginModel)
       .pipe(map(resp => {
         this.storeUserInfo(resp, 'local');
@@ -53,7 +54,7 @@ export class AuthService implements OnInit {
       }))
   }
   googleAuth(data){
-    return this.http.post<any>('http://localhost:8080/accounts/oauth/google',
+    return this.http.post<any>(this.secureUrl + '/accounts/oauth/google',
     data)
     .pipe(map(resp => {
       this.storeUserInfo(resp, 'google');
@@ -72,7 +73,7 @@ export class AuthService implements OnInit {
   //         });
   //     }
   // });
-    return this.http.post<any>('http://localhost:8080/accounts/oauth/facebook',
+    return this.http.post<any>(this.secureUrl + '/accounts/oauth/facebook',
     data)
     .pipe(map(resp => {
       console.log('facebook response: ', resp)
@@ -94,7 +95,7 @@ export class AuthService implements OnInit {
     //   return resp;
     // }))
 
-    // return this.http.get<any>('http://localhost:8080/accounts/oauth/linkedIn')
+    // return this.http.get<any>(this.url + '/accounts/oauth/linkedIn')
     // .pipe(map(resp => {
     //   console.log('linkedIn response: ', resp)
     //   // this.storeUserInfo(resp, 'linkedIn');
@@ -103,7 +104,7 @@ export class AuthService implements OnInit {
     
   //}
   linkedInAuth(data){
-    return this.http.post<any>('http://localhost:8080/accounts/oauth/linkedIn',
+    return this.http.post<any>(this.secureUrl + '/accounts/oauth/linkedIn',
     data)
     .pipe(map(resp => {
       this.storeUserInfo(resp, 'linkedIn');
@@ -111,7 +112,7 @@ export class AuthService implements OnInit {
     }))
   }
   register(signupModel) {
-    return this.http.post<any>('http://localhost:8080/accounts/oauth/register',
+    return this.http.post<any>(this.secureUrl + '/accounts/oauth/register',
       signupModel)
       .pipe(map(resp => {
         return resp;
@@ -119,21 +120,21 @@ export class AuthService implements OnInit {
   }
   confirmAccount(data) {
     console.log('conf service data: ', data)
-    return this.http.post<any>('http://localhost:8080/accounts/oauth/confirm-account',
+    return this.http.post<any>(this.secureUrl + '/accounts/oauth/confirm-account',
       data)
       .pipe(map(resp => {
         return resp;
       }))
   }
   resendComfirmationToken(email) {
-    return this.http.post<any>('http://localhost:8080/accounts/oauth/resend-confimation',
+    return this.http.post<any>(this.secureUrl + '/accounts/oauth/resend-confimation',
       {email: email})
       .pipe(map(resp => {
         return resp;
       }))
   }
   logout() {
-    return this.http.get<any>('http://localhost:8080/accounts/oauth/logout')
+    return this.http.get<any>(this.secureUrl + '/accounts/oauth/logout')
       .pipe(map(resp => {
         if (resp.successful) {
           var authProvider = JSON.parse(localStorage.getItem('currentUser')).authProvider;

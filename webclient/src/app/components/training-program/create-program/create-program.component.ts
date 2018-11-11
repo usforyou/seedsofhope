@@ -17,10 +17,6 @@ export class CreateProgramComponent implements OnInit {
 
   ngOnInit() {
   }
-  backToprogramDetails(){
-    this.screen = "details";
-    this.pageTitle = "program Details";
-  }
   submitprogram(){
     this.submitting = true;
   }

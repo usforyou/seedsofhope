@@ -28,6 +28,7 @@ app.use(bodyParser.json({
 const testRoutes = require('./routes/testRoutes');
 const authRoutes = require('./routes/oauthRoutes');
 const acctRoutes = require('./routes/accountRoutes');
+const programRoutes = require('./routes/programRoutes');
 
 app.use(logger.log);
 
@@ -82,6 +83,7 @@ app.get('/api', (req, res) => {
 app.use('/api/test', testRoutes.router);
 app.use('/api/accounts/oauth', authRoutes.router);
 app.use('/api/accounts', acctRoutes.router);
+app.use('/api/programs', programRoutes.router);
 
 //Handle all unavailable routes
 app.get('*', function (req, res, next) {

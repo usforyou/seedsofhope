@@ -1,4 +1,6 @@
 export class User {
+    constructor(){};
+
     userId: string;
     acctType: string;
     phone: string;
