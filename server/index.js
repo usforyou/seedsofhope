@@ -25,7 +25,6 @@ app.use(bodyParser.json({
 
 
 //Include Routers
-const testRoutes = require('./routes/testRoutes');
 const authRoutes = require('./routes/oauthRoutes');
 const acctRoutes = require('./routes/accountRoutes');
 const programRoutes = require('./routes/programRoutes');
@@ -80,7 +79,9 @@ app.get('/api', (req, res) => {
       //console.log('req.session ', req.session)
       res.send('this is the home page');
 })
-app.use('/api/test', testRoutes.router);
+app.get('/api/test/ping', (req, res) => {
+      res.json({"message": "The server is up and running!"})
+});
 app.use('/api/accounts/oauth', authRoutes.router);
 app.use('/api/accounts', acctRoutes.router);
 app.use('/api/programs', programRoutes.router);
